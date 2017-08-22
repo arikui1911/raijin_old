@@ -148,6 +148,8 @@ end
 
 
 
+
+__END__
 class Hoge < Raijin
   desc "Easy RSS aggregater."
   option '--state=PATH', 'assign state file path' do |path|
