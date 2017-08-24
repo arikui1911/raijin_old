@@ -114,20 +114,20 @@ class Raijin
 
     def assign_command(cmd)
       if cmd.name == :initialize
-        me   = program
-        args = "COMMAND ..."
+        me  = program
+        arg = "COMMAND ..."
       else
-        me   = "#{program} #{cmd.name}"
-        args = generate_args_desc(cmd.name)
+        me  = "#{program} #{cmd.name}"
+        arg = generate_args_desc(cmd.name)
       end
-      @parser.banner = "#{me}: #{cmd.desc}\nUsage: #{me} [options] #{args}"
+      @parser.banner = "#{me}: #{cmd.desc}\nUsage: #{me} [options] #{arg}"
       cmd.options.each do |(args, block)|
         @parser.on(*args){|*a| instance_exec(*a, &block) }
       end
     end
 
-    def generate_args_desc(name)
-      args = @cli.method(name).parameters.map{|(type, name)|
+    def generate_args_desc(meth)
+      @cli.method(meth).parameters.map{|(type, name)|
         name = name.upcase
         case type
         when :req
