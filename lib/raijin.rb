@@ -3,8 +3,11 @@ require 'optparse'
 class Raijin
   class Error < RuntimeError ; end
 
-  def self.run(argv, program: nil)
-    Runner.new(new().tap{|x| x.__send__ :raijin_initialize }, program).run(argv)
+  def self.run(argv, program: nil, stdout: $stdout, stderr: $stderr)
+    cli = new()
+    cli.__send__ :raijin_initialize, stdout, stderr
+    runner = Runner.new(cli, program)
+    runner.run argv
   end
 
   Command = Struct.new(:name, :desc, :options)
@@ -17,9 +20,9 @@ class Raijin
 
   private
 
-  def raijin_initialize
-    @stdout = $stdout
-    @stderr = $stderr
+  def raijin_initialize(stdout, stderr)
+    @stdout = stdout
+    @stderr = stderr
   end
 
   def command_nothing

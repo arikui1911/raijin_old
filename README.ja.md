@@ -80,7 +80,7 @@ OptionParser#onについて勉強して下さい。内部的にオプション�
 ただし、ブロックはRaijinを継承したクラスのオブジェクトのコンテキストで
 評価されます。
 
-    App.run(ARGV, program: 'app')
+    App.run(ARGV, program: 'app', stdout: $stdout, stderr: $stderr)
 
 runでコマンドを実行します。thorみたいにnewしてコマンドのメソッドを呼ん
 でも同じようには動きません。注意してください。
