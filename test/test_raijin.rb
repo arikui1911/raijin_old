@@ -11,5 +11,9 @@ class TestRaijin < Test::Unit::TestCase
     test '#command_nothing' do
       assert_raise(Raijin::Error){ @cli.__send__ :command_nothing }
     end
+
+    test '#command_missing' do
+      assert_raise(Raijin::Error){ @cli.__send__ :command_missing, :hoge }
+    end
   end
 end
